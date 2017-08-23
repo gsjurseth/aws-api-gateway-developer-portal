@@ -1,6 +1,6 @@
 {
   "name": "dev-portal",
-  "homepage": "http://YOUR_CLIENT_BUCKET_NAME.s3-website-YOUR_PRIMARY_AWS_REGION.amazonaws.com/",
+  "homepage": "http://ebuilder-devportal.s3-website-eu-west-1.amazonaws.com/",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
