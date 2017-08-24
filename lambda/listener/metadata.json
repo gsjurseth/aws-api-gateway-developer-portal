@@ -1,0 +1,15 @@
+{
+  "Description": "Listener",
+  "Handler": "index.handler",
+  "Timeout": 15,
+  "Memory": 128,
+  "Runtime": "nodejs6.10",
+  "Role":  "@role:lambda_basic_execution@",
+  "Environment": {
+    "loglevel" : "@env: LOGLEVEL@"
+  },
+  "CWLogFilter": {
+    "Destination": "@kinesis:outCWlogs@",
+    "Role": "@role:CWLtoKinesisRole@"
+  }
+}

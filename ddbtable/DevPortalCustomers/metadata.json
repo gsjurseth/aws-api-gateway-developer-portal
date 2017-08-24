@@ -1,0 +1,22 @@
+{
+  "Read": 5,
+  "Write": 5,
+  "PartitionKey": {
+    "Type": "String",
+    "Name": "id"
+  },
+  "Indexes": [
+    {
+      "Name": "MarketplaceCustomerIdIndex",
+      "Read": 5,
+      "Write": 5,
+      "PartitionKey": {
+        "Type": "String",
+        "Name": "MarketplaceCustomerId"
+      },
+      "Projection": {
+        "Type": "ALL"
+      }
+    }
+  ]
+}

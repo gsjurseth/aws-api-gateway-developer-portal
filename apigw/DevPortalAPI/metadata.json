@@ -1,0 +1,12 @@
+{
+  "Description": "API for getting Warranty status for device",
+  "Stage": "@stage@",
+  "UsagePlan": "@usageplan: Default@",
+  "SwaggerFile": "file://api.json",
+  "CustomDomain": "@env: CUSTOM_DOMAIN_NAME@",
+  "CustomDomainName": "DevPortal",
+  "UserData": {
+    "SourceURL": "https://app.swaggerhub.com/apiproxy/schema/file/eBuilder/DevPortalAPI/1.0.0/swagger.json",
+    "SwaggerAuthKey": "eyJUb2tlblR5cGUiOiJBUEkiLCJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI2NTgwZDY4My0yNzVmLTRlOTUtODRhNC0xZjQxNjI2MDg3MWMiLCJpYXQiOjE1MDE2NzU1NTd9.XX_v8EmwYa7tw1ud4kLiGUKSmrTsYSRzaAdEwC5EvIcqRnnpy3ogAvG2_geNjr1ymtfWgEVfmfWF6aVMypQTuA"
+  }
+}
