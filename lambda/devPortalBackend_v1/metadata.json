@@ -5,6 +5,7 @@
   "Memory": 128,
   "Runtime": "nodejs6.10",
   "Role":  "@role:lambda_basic_execution@",
+  "Payload": "file://payload.zip",
   "Environment": {
     "loglevel" : "@env: LOGLEVEL@"
   },

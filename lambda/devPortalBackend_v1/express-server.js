@@ -13,7 +13,7 @@ const app = express()
 const apigateway = new AWS.APIGateway()
 
 // replace these to match your site URL. Note: Use TLS, not plain HTTP, for your production site!
-const domain = 'YOUR_CLIENT_BUCKET_NAME.s3-website-YOUR_PRIMARY_AWS_REGION.amazonaws.com'
+const domain = 'apigw.ebuilder.io'
 const baseUrl = `http://${domain}/`
 
 app.use(cors())
@@ -28,7 +28,7 @@ app.use(awsServerlessExpressMiddleware.eventContext())
 //     res.json({})
 // })
 
-app.post('/signin', (req, res) => {
+app.post('/devportal/signin', (req, res) => {
     const cognitoIdentityId = getCognitoIdentityId(req)
 
     function errFunc(data) {
@@ -64,11 +64,12 @@ app.post('/signin', (req, res) => {
 })
 
 // the API catalog could be statically defined (catalog/index.js), or generated from API Gateway Usage Plans (See getUsagePlans())
-app.get('/catalog', (req, res) => {
+app.get('/devportal/catalog', (req, res) => {
+    console.log('My request: %j', req);
     res.status(200).json(catalog)
 })
 
-app.get('/apikey', (req, res) => {
+app.get('/devportal/apikey', (req, res) => {
     const cognitoIdentityId = getCognitoIdentityId(req)
 
     function errFunc(data) {
@@ -90,7 +91,7 @@ app.get('/apikey', (req, res) => {
     })
 })
 
-app.get('/subscriptions', (req, res) => {
+app.get('/devportal/subscriptions', (req, res) => {
     console.log(`GET /subscriptions for Cognito ID: ${req.apiGateway.event.requestContext.identity.cognitoIdentityId}`)
 
     function errFunc(data) {
@@ -103,7 +104,7 @@ app.get('/subscriptions', (req, res) => {
     })
 })
 
-app.put('/subscriptions/:usagePlanId', (req, res) => {
+app.put('/devportal/subscriptions/:usagePlanId', (req, res) => {
     const cognitoIdentityId = getCognitoIdentityId(req)
     const usagePlanId = req.params.usagePlanId
 
@@ -125,7 +126,7 @@ app.put('/subscriptions/:usagePlanId', (req, res) => {
     }
 })
 
-app.get('/subscriptions/:usagePlanId/usage', (req, res) => {
+app.get('/devportal/subscriptions/:usagePlanId/usage', (req, res) => {
     const cognitoIdentityId = getCognitoIdentityId(req)
     const usagePlanId = req.params.usagePlanId
 
@@ -164,7 +165,7 @@ app.get('/subscriptions/:usagePlanId/usage', (req, res) => {
     }
 })
 
-app.delete('/subscriptions/:usagePlanId', (req, res) => {
+app.delete('/devportal/subscriptions/:usagePlanId', (req, res) => {
     const cognitoIdentityId = getCognitoIdentityId(req)
     const usagePlanId = req.params.usagePlanId
 
@@ -189,7 +190,7 @@ app.delete('/subscriptions/:usagePlanId', (req, res) => {
 // no auth
 // this is the redirect URL for AWS Marketplace products
 // i.e. https://YOUR_API_GATEWAY_API_ID.execute-api.us-east-1.amazonaws.com/prod/marketplace-confirm/[USAGE_PLAN_ID]
-app.post('/marketplace-confirm/:usagePlanId', (req, res) => {
+app.post('/devportal/marketplace-confirm/:usagePlanId', (req, res) => {
     const marketplaceToken = req.body['x-amzn-marketplace-token']
 
     if (marketplaceToken === null || marketplaceToken === undefined) {
@@ -208,7 +209,7 @@ app.post('/marketplace-confirm/:usagePlanId', (req, res) => {
     res.redirect(302, confirmUrl)
 })
 
-app.put('/marketplace-subscriptions/:usagePlanId', (req, res) => {
+app.put('/devportal/marketplace-subscriptions/:usagePlanId', (req, res) => {
     const marketplaceToken = req.body.token
     const usagePlanId = req.params.usagePlanId
     console.log(`Marketplace token: ${marketplaceToken} usage plan id: ${usagePlanId}`)

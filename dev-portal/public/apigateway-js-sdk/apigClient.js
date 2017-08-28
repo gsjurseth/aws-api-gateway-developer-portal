@@ -53,7 +53,8 @@ apigClientFactory.newClient = function (config) {
     }
 
     // extract endpoint and path from url
-    var invokeUrl = 'https://YOUR_API_GATEWAY_API_ID.execute-api.YOUR_PRIMARY_AWS_REGION.amazonaws.com/prod';
+    //var invokeUrl = 'https://YOUR_API_GATEWAY_API_ID.execute-api.YOUR_PRIMARY_AWS_REGION.amazonaws.com/prod';
+    var invokeUrl = 'https://apigw.ebuilder.io/devportal';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 

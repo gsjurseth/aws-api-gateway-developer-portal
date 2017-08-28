@@ -13,8 +13,8 @@ const app = express()
 const apigateway = new AWS.APIGateway()
 
 // replace these to match your site URL. Note: Use TLS, not plain HTTP, for your production site!
-const domain = 'YOUR_CLIENT_BUCKET_NAME.s3-website-YOUR_PRIMARY_AWS_REGION.amazonaws.com'
-const baseUrl = `http://${domain}/`
+const domain = 'apigw.ebuilder.io'
+const baseUrl = `https://${domain}/`
 
 app.use(cors())
 app.use(bodyParser.json())
