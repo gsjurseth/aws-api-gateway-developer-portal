@@ -65,8 +65,10 @@ app.post('/devportal/signin', (req, res) => {
 
 // the API catalog could be statically defined (catalog/index.js), or generated from API Gateway Usage Plans (See getUsagePlans())
 app.get('/devportal/catalog', (req, res) => {
-    console.log('My request: %j', req);
-    res.status(200).json(catalog)
+    catalog.listAPIs()
+        .then( d => {
+            res.status(200).json( d )
+        });
 })
 
 app.get('/devportal/apikey', (req, res) => {

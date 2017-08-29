@@ -15,7 +15,7 @@
     "common-lambda-assets": "../../common/_common",
     "cors": "^2.8.1",
     "express": "^4.14.0",
-    "js-yaml": "^3.7.0"
-  },
-  "devDependencies": {}
+    "js-yaml": "^3.7.0",
+    "bluebird": "^3.5.0"
+  }
 }

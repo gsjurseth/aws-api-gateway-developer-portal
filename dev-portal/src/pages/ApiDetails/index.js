@@ -13,7 +13,7 @@ export default class ApiDetailsPage extends PureComponent {
       this.setState({
         api
       })
-      loadSwagger(api.swagger)
+      loadSwagger(api.swaggerURL)
     })
   }
 
