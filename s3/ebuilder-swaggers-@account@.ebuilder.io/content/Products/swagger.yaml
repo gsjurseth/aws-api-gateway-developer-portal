@@ -3,6 +3,7 @@ swagger: "2.0"
 info:
   version: "2.0.0"
   title: "Product"
+  description: "Master data for our product service"
 host: "apigw.ebuilder.io"
 basePath: "/product"
 schemes:

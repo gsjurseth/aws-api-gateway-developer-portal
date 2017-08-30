@@ -30,13 +30,11 @@ const ApiCard = ({usagePlan, api}) => (
 <Card key={api.id} style={{textAlign: 'center'}}>
   <Link to={`apis/${api.id}`} style={{background: 'rgba(0, 0, 0, 0.05)'}}>{ api.image ? <Image src={api.image} style={{margin: 'auto'}} /> : ''}</Link>
   <Card.Content>
-    <Card.Header><Link to={`apis/${api.id}`}>{api.id}</Link></Card.Header>
-    {/*
+    <Card.Header><Link to={`apis/${api.id}`}>{api.swagger.title}</Link></Card.Header>
     <Card.Meta>
-      <span className='date'>Version {api.swagger.info.version}</span>
+      <span className='date'>Version {api.swagger.version}</span>
     </Card.Meta>
-    <Card.Description>{api.swagger.info.description}</Card.Description>
-            */}
+    <Card.Description>{api.swagger.description}</Card.Description>
   </Card.Content>
   { isAuthenticated() ? (<Card.Content extra>
     { isSubscribed(usagePlan.id) ? <SubscribedApiActionsDropdown api={api} usagePlan={usagePlan} /> : <Button onClick={event => handleSubscribe(event, usagePlan)}>Subscribe</Button>}

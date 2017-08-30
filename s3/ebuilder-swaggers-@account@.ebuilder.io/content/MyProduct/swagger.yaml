@@ -2,6 +2,7 @@ swagger: "2.0"
 info:
   version: "2.0.0"
   title: "MyProduct"
+  description: "Service that handles individual instances of products associated with users."
 host: "apigw.ebuilder.io"
 basePath: "/myproduct"
 schemes:
