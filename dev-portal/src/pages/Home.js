@@ -47,11 +47,14 @@ export default class HomePage extends PureComponent {
             </Card.Content>
           </Card>
         </Card.Group>
-        { isAuthenticated() ? '' : (<Segment padded>
+        { /* skipping this completely .. this is for internal use only
+                isAuthenticated() ? '' : (<Segment padded>
           <SignIn usagePlanId={this.state.usagePlanId} token={this.state.token} />
           <Divider horizontal>Or</Divider>
           <Register usagePlanId={this.state.usagePlanId} token={this.state.token} />
-        </Segment>) }
+                    </Segment>) 
+                */
+                }
       </Container>
     )
   }
