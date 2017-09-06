@@ -13,6 +13,7 @@
     "aws-serverless-express": "^1.1.4",
     "bluebird": "^3.5.0",
     "body-parser": "^1.15.2",
+    "bunyan": "^1.8.12",
     "common-lambda-assets": "../../common/_common",
     "cors": "^2.8.1",
     "express": "^4.14.0",

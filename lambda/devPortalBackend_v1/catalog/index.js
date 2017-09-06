@@ -3,11 +3,18 @@ const yaml = require('js-yaml'),
     aws = require('aws-sdk'),
     Promise = require('bluebird'),
     yamljs = require('yamljs'),
+    bunyan = require('bunyan'),
     strPromise = require('stream-to-promise');
 
 aws.config.setPromisesDependency(Promise);
 
 const s3 = new aws.S3();
+
+const log = bunyan.createLogger({
+    name: 'ProofOfPurchase',
+    level: process.env.loglevel ? process.env.loglevel : 'DEBUG',
+    message: {}
+});
 
 function getSwaggerInfo(path) {
     let methodName = 'getSwaggerInfo';
@@ -15,7 +22,7 @@ function getSwaggerInfo(path) {
         Bucket: config.swaggerBucket,
         Key: path
     };
-    console.log({methodName, params}, "Reading swagger");
+    log.debug({methodName, params}, "Reading swagger");
     let myReadStream = s3.getObject(params).createReadStream();
     return strPromise(myReadStream)
         .then( buf => {
@@ -23,7 +30,7 @@ function getSwaggerInfo(path) {
         })
         .then( d => d.info )
         .then( d => {
-            console.log({d}, "the result of the swagger lookup");
+            log.debug({d}, "the result of the swagger lookup");
             return {
                 title: d.title ? d.title : 'swagger',
                 version: d.version ? d.version : 'unversioned',
@@ -32,15 +39,15 @@ function getSwaggerInfo(path) {
         });
 }
 
-function setAPIObject(api) {
-    let apiName = api.Prefix.replace('/','');
-    return getSwaggerInfo( `${apiName}/swagger.yaml` )
-        .then( swagger => {
+function setAPIObject(swagger) {
+    let apiName = swagger.split('/')[0];
+    return getSwaggerInfo( swagger )
+        .then( swaggerInfo => {
             return {
                 id: apiName,
                 image: '/api-icon.png',
-                swaggerURL: config.swaggerURLRoot + api.Prefix + 'swagger.yaml',
-                swagger: swagger
+                swaggerURL: config.swaggerURLRoot + swagger,
+                swagger: swaggerInfo
             };
         })
 }
@@ -49,13 +56,14 @@ exports.listAPIs = () => {
     var methodName = "listAPIs";
     var params = {
         Bucket: config.swaggerBucket,
-        Delimiter: "/",
+        Delimiter: "/swagger.yaml",
         MaxKeys: config.maxKeys
     };
-    console.log({methodName,params}, "about to call s3.list");
+
+    log.debug({methodName,params}, "about to call s3.list");
     return s3.listObjectsV2(params).promise()
-        .tap( list => console.log({list, methodName},"Received this list"))
-        .then( list => list.CommonPrefixes )
+        .tap( list => log.debug({list, methodName},"Received this list"))
+        .then( list => list.CommonPrefixes.map( i => i.Prefix ) )
         .map(setAPIObject)
         .then( fullList => {
             return [

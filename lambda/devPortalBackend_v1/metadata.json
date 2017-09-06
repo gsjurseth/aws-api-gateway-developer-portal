@@ -1,8 +1,8 @@
 {
   "Description": "API portal backend",
   "Handler": "index.handler",
-  "Timeout": 15,
-  "Memory": 128,
+  "Timeout": 30,
+  "Memory": 1536,
   "Runtime": "nodejs6.10",
   "Role":  "@role:lambda_basic_execution@",
   "Payload": "file://payload.zip",
