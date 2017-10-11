@@ -2,7 +2,6 @@ const yaml = require('js-yaml'),
     config = require('../env'),
     aws = require('aws-sdk'),
     Promise = require('bluebird'),
-    yamljs = require('yamljs'),
     bunyan = require('bunyan'),
     strPromise = require('stream-to-promise');
 
@@ -26,7 +25,8 @@ function getSwaggerInfo(path) {
     let myReadStream = s3.getObject(params).createReadStream();
     return strPromise(myReadStream)
         .then( buf => {
-            return yamljs.parse(buf.toString());
+            //return yamljs.parse(buf.toString());
+            return yaml.safeLoad(buf.toString());
         })
         .then( d => d.info )
         .then( d => {
